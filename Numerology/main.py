@@ -141,6 +141,14 @@ def together():
     basic()
     name()
 
+def meanings():
+
+    numbers = {
+        "number": 1,
+        "positive": "bla bla",
+        "negative": "bla bla",
+        "extra": "bla bla"
+    }
 
 def karmas(value) -> tuple:
     masters = [11, 22, 33, 44, 55, 66, 77, 88, 99]
