@@ -1,13 +1,21 @@
+numbers = {
+        "number": [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33, 44, 55],
 
-def main_menu() -> str:
+        "positive": ["Individualidad, Independencia, Energia masculina, Iniciativa, pionero, lider, trabaja mejor solo, dificil de convencer, guia de otros, hace todo por si mismo, confianza, fuerza", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla"],
+
+        "negative": ["Egoista, no le gusta que lo aconsejen, orgulloso, temperamental, rechaza la critica, busca salirse con la sua, protagonista, perezoso, posterga los impulsos, necesita reconocimiento, caprichoso, arrogante, autroritario, narcisista, fanfarronea, falta de empatia, manipulador, dominante, agresivo", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla"],
+
+        "extra": ["bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla"]
+    }
+
+def main_menu() -> int:
     option = 0
-    option = int(
-        input("Choose an option: \n1. Basic\n2. Name\n3. All\n4. Exit\n"))
+    option = int(input("Choose an option: \n1. Basic\n2. Name\n3. All\n4. Exit\n"))
 
     return option
 
 
-def basic():
+def basic(numbers) -> None:
 
     date = []
 
@@ -40,7 +48,7 @@ def basic():
     print(f"Destino: {destino} / {destino_red[-1]}\n\n")
 
 
-def name():
+def name(numbers) -> None:
     # Define the mapping from letters to numbers
     letter_to_number = {
         "a": 1,
@@ -137,18 +145,10 @@ def name():
     )
 
 
-def together():
-    basic()
-    name()
+def together(numbers) -> None:
+    basic(numbers)
+    name(numbers)
 
-def meanings():
-
-    numbers = {
-        "number": 1,
-        "positive": "bla bla",
-        "negative": "bla bla",
-        "extra": "bla bla"
-    }
 
 def karmas(value) -> tuple:
     masters = [11, 22, 33, 44, 55, 66, 77, 88, 99]
@@ -163,7 +163,7 @@ def sum_digits(num) -> str:
     return str(num), sum(int(digit) for digit in str(num))
 
 
-def count_numbers(n):
+def count_numbers(n) -> list:
     """Count the occurrence of each digit in a number."""
     counts = [0] * 10
     for num in n:
@@ -173,7 +173,7 @@ def count_numbers(n):
     return counts
 
 
-def exit_program():
+def exit_program() -> None:
     print("Exiting program...")
 
 
@@ -183,11 +183,11 @@ while program_running:
     option = 0
     option = main_menu()
     if option == 1:
-        basic()
+        basic(numbers)
     elif option == 2:
-        name()
+        name(numbers)
     elif option == 3:
-        together()
+        together(numbers)
     else:
         program_running = False
         exit_program()

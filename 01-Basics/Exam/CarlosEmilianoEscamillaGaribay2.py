@@ -2,7 +2,7 @@
 # Analyze a List of Words: Create a program that evaluates and provides insights into a list of words input by the user.
 # 1. Ask the user to indicate how many words will be entered.  DONE
 # 2. Prompt the user to enter the specified number of words, displaying the frequency of each word to
-# show how often each word appears.
+# show how often each word appears. Esta me falto
 # 3. Display the list of unique words. DONE
 # 4. Find and display the longest word(s) in the list. DONE
 # 5. Find and display the shortest word(s) in the list. DONE
@@ -23,8 +23,6 @@ def words_inputs(list_words):
         # Append the word to the end of the list
         list_words.append(word_append)
     
-    
-
     # A print to see that works
     # print(list_words)
     return list_words
