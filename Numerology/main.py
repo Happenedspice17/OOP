@@ -20,31 +20,36 @@ def basic(numbers) -> None:
     date = []
 
     date = [int(item) for item in input("Fecha completa : ").split()]
-    print(date)
+    # print(date)
 
     day = str(date[0]) + str(date[1])
     day_red = sum_digits(day)
-    print(f"Alma: {day} / {day_red[-1]}")
 
     month = str(date[2]) + str(date[3])
     month_red = sum_digits(month)
-    print(f"Ego: {month} / {month_red[-1]}")
 
     two_year = str(date[6]) + str(date[7])
     two_year_red = sum_digits(two_year)
-    print(f"Don: {two_year} / {two_year_red[-1]}")
 
     year = str(date[4]) + str(date[5]) + str(date[6]) + str(date[7])
     year_red = sum_digits(year)
-    print(f"Vidas Pasadas: {year} / {year_red[-1]}")
 
     proposito = karmas(sum(date))[0]
     proposito_red = sum_digits(proposito)
-    print(f"Proposito: {proposito} / {proposito_red[-1]}")
 
     destino = sum_digits(day)[-1] + sum_digits(month)[-1] + sum_digits(
         year)[-1]
     destino_red = sum_digits(destino)
+
+    print("Numbers", numbers["number"][day_red[-1] - 1])
+    print("Positive", numbers["positive"][day_red[-1] - 1])
+
+    
+    print(f"Alma: {day} / {day_red[-1]}")
+    print(f"Ego: {month} / {month_red[-1]}")
+    print(f"Don: {two_year} / {two_year_red[-1]}")
+    print(f"Vidas Pasadas: {year} / {year_red[-1]}")
+    print(f"Proposito: {proposito} / {proposito_red[-1]}")
     print(f"Destino: {destino} / {destino_red[-1]}\n\n")
 
 
