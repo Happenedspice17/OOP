@@ -1,13 +1,3 @@
-numbers = {
-        "number": [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33, 44, 55],
-
-        "positive": ["Individualidad, Independencia, Energia masculina, Iniciativa, pionero, lider, trabaja mejor solo, dificil de convencer, guia de otros, hace todo por si mismo, confianza, fuerza", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla"],
-
-        "negative": ["Egoista, no le gusta que lo aconsejen, orgulloso, temperamental, rechaza la critica, busca salirse con la sua, protagonista, perezoso, posterga los impulsos, necesita reconocimiento, caprichoso, arrogante, autroritario, narcisista, fanfarronea, falta de empatia, manipulador, dominante, agresivo", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla"],
-
-        "extra": ["bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla", "bla bla"]
-    }
-
 def main_menu() -> int:
     option = 0
     option = int(input("Choose an option: \n1. Basic\n2. Name\n3. All\n4. Exit\n"))
@@ -15,7 +5,7 @@ def main_menu() -> int:
     return option
 
 
-def basic(numbers) -> None:
+def basic() -> None:
 
     date = []
 
@@ -40,10 +30,6 @@ def basic(numbers) -> None:
     destino = sum_digits(day)[-1] + sum_digits(month)[-1] + sum_digits(
         year)[-1]
     destino_red = sum_digits(destino)
-
-    print("Numbers", numbers["number"][day_red[-1] - 1])
-    print("Positive", numbers["positive"][day_red[-1] - 1])
-
     
     print(f"Alma: {day} / {day_red[-1]}")
     print(f"Ego: {month} / {month_red[-1]}")
@@ -53,7 +39,7 @@ def basic(numbers) -> None:
     print(f"Destino: {destino} / {destino_red[-1]}\n\n")
 
 
-def name(numbers) -> None:
+def name() -> None:
     # Define the mapping from letters to numbers
     letter_to_number = {
         "a": 1,
@@ -150,9 +136,9 @@ def name(numbers) -> None:
     )
 
 
-def together(numbers) -> None:
-    basic(numbers)
-    name(numbers)
+def together() -> None:
+    basic()
+    name()
 
 
 def karmas(value) -> tuple:
@@ -188,11 +174,11 @@ while program_running:
     option = 0
     option = main_menu()
     if option == 1:
-        basic(numbers)
+        basic()
     elif option == 2:
-        name(numbers)
+        name()
     elif option == 3:
-        together(numbers)
+        together()
     else:
         program_running = False
         exit_program()
