@@ -87,12 +87,12 @@ def parejas() -> list:
     destino_red1 = sum_digits(destino1)
 
 
-    print(f"Alma: Persona1: {day} / {day_red[-1]} Persona2: {day1} / {day_red1[-1]} Suma {day_red[-1] + day_red1[-1]}")
-    print(f"Ego: Persona1: {month} / {month_red[-1]} -- {month1} / {month_red1[-1]} Suma {month_red[-1] + month_red1[-1]}")
-    print(f"Don: Persona1: {two_year} / {two_year_red[-1]} Persona2: {two_year1} / {two_year_red1[-1]} Suma {two_year_red[-1] + two_year_red1[-1]}")
-    print(f"Vidas Pasadas: Persona1: {year} / {year_red[-1]} Persona2: {year1} / {year_red1[-1]} Suma {year_red[-1] + year_red1[-1]}")
-    print(f"Proposito: Persona1: {proposito} / {proposito_red[-1]} Persona2: {proposito1} / {proposito_red1[-1]} Suma {proposito_red[-1] + proposito_red1[-1]}")
-    print(f"Destino: Persona1: {destino} / {destino_red[-1]} Persona2: {destino1} / {destino_red1[-1]} Suma {destino_red[-1] + destino_red1[-1]}\n\n")
+    print(f"Alma: {day} / {day_red[-1]} -- {day1} / {day_red1[-1]} -S- {day_red[-1] + day_red1[-1]}")
+    print(f"Ego: {month} / {month_red[-1]} -- {month1} / {month_red1[-1]} -S- {month_red[-1] + month_red1[-1]}")
+    print(f"Don: {two_year} / {two_year_red[-1]} -- {two_year1} / {two_year_red1[-1]} -S- {two_year_red[-1] + two_year_red1[-1]}")
+    print(f"Vidas Pasadas: {year} / {year_red[-1]} -- {year1} / {year_red1[-1]} -S- {year_red[-1] + year_red1[-1]}")
+    print(f"Proposito: {proposito} / {proposito_red[-1]} -- {proposito1} / {proposito_red1[-1]} -S- {proposito_red[-1] + proposito_red1[-1]}")
+    print(f"Destino: {destino} / {destino_red[-1]} -- {destino1} / {destino_red1[-1]} -S- {destino_red[-1] + destino_red1[-1]}\n\n")
 
 
 def name() -> None:
