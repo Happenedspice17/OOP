@@ -1,6 +1,6 @@
 def main_menu() -> int:
     option = 0
-    option = int(input("Choose an option: \n1. Basic\n2. Name\n3. All\n4. Exit\n"))
+    option = int(input("Choose an option: \n1. Basic\n2. Name\n3. Both\n4. Couples\n5. Exit"))
 
     return option
 
@@ -27,8 +27,7 @@ def basic() -> None:
     proposito = karmas(sum(date))[0]
     proposito_red = sum_digits(proposito)
 
-    destino = sum_digits(day)[-1] + sum_digits(month)[-1] + sum_digits(
-        year)[-1]
+    destino = sum_digits(day)[-1] + sum_digits(month)[-1] + sum_digits(year)[-1]
     destino_red = sum_digits(destino)
     
     print(f"Alma: {day} / {day_red[-1]}")
@@ -38,6 +37,62 @@ def basic() -> None:
     print(f"Proposito: {proposito} / {proposito_red[-1]}")
     print(f"Destino: {destino} / {destino_red[-1]}\n\n")
 
+
+def parejas() -> list:
+
+    date = []
+
+    date = [int(item) for item in input("Fecha completa de la primer persona: ").split()]
+    # print(date)
+
+    day = str(date[0]) + str(date[1])
+    day_red = sum_digits(day)
+
+    month = str(date[2]) + str(date[3])
+    month_red = sum_digits(month)
+
+    two_year = str(date[6]) + str(date[7])
+    two_year_red = sum_digits(two_year)
+
+    year = str(date[4]) + str(date[5]) + str(date[6]) + str(date[7])
+    year_red = sum_digits(year)
+
+    proposito = karmas(sum(date))[0]
+    proposito_red = sum_digits(proposito)
+
+    destino = sum_digits(day)[-1] + sum_digits(month)[-1] + sum_digits(year)[-1]
+    destino_red = sum_digits(destino)
+    
+    date1 = []
+
+    date1 = [int(item1) for item1 in input("Fecha completa de la segunda persona: ").split()]
+    # print(date)
+
+    day1 = str(date1[0]) + str(date1[1])
+    day_red1 = sum_digits(day1)
+
+    month1 = str(date1[2]) + str(date1[3])
+    month_red1 = sum_digits(month1)
+
+    two_year1 = str(date1[6]) + str(date1[7])
+    two_year_red1 = sum_digits(two_year1)
+
+    year1 = str(date1[4]) + str(date1[5]) + str(date1[6]) + str(date1[7])
+    year_red1 = sum_digits(year1)
+
+    proposito1 = karmas(sum(date1))[0]
+    proposito_red1 = sum_digits(proposito1)
+
+    destino1 = sum_digits(day1)[-1] + sum_digits(month1)[-1] + sum_digits(year1)[-1]
+    destino_red1 = sum_digits(destino1)
+
+
+    print(f"Alma: {day} / {day_red[-1]} -- {day1} / {day_red1[-1]}")
+    print(f"Ego: {month} / {month_red[-1]} -- {month1} / {month_red1[-1]}")
+    print(f"Don: {two_year} / {two_year_red[-1]} -- {two_year1} / {two_year_red1[-1]}")
+    print(f"Vidas Pasadas: {year} / {year_red[-1]} -- {year1} / {year_red1[-1]}")
+    print(f"Proposito: {proposito} / {proposito_red[-1]} -- {proposito1} / {proposito_red1[-1]}")
+    print(f"Destino: {destino} / {destino_red[-1]} -- {destino1} / {destino_red1[-1]}\n\n")
 
 def name() -> None:
     # Define the mapping from letters to numbers
@@ -179,6 +234,8 @@ while program_running:
         name()
     elif option == 3:
         together()
+    elif option == 4:
+        parejas()
     else:
         program_running = False
         exit_program()
