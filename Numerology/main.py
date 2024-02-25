@@ -1,7 +1,6 @@
 def main_menu() -> int:
     option = 0
-    option = int(input(
-        "Choose an option: \n1. Basic\n2. Name\n3. Complete\n4. Couples\n5. Exit\n"))
+    option = int(input("Choose an option: \n1. Basic\n2. Name\n3. Complete\n4. Couples\n5. Exit\n"))
 
     return option
 
