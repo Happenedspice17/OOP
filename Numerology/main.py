@@ -76,8 +76,6 @@ def basic() -> None:
 
     print(f"Etapa1: 0 a {36 - destino_red[-1]} -- Etapa2: {36 - destino_red[-1]} a {36 - destino_red[-1] + 9} -- Etapa3: {36 - destino_red[-1] + 9} a {36 - destino_red[-1] + 18} -- Etapa4: {36 - destino_red[-1] + 18} a {36 - destino_red[-1] + 27}")
 
-
-
     return date
 
 
@@ -85,8 +83,7 @@ def parejas() -> list:
 
     date = []
 
-    date = [int(item) for item in input(
-        "Fecha completa de la primer persona: ").split()]
+    date = [int(item) for item in input("Fecha completa de la primer persona: ").split()]
     # print(date)
 
     day = str(date[0]) + str(date[1])
@@ -104,8 +101,7 @@ def parejas() -> list:
     proposito = karmas(sum(date))[0]
     proposito_red = sum_digits(proposito)
 
-    destino = sum_digits(day)[-1] + \
-        sum_digits(month)[-1] + sum_digits(year)[-1]
+    destino = sum_digits(day)[-1] + sum_digits(month)[-1] + sum_digits(year)[-1]
     destino_red = sum_digits(destino)
 
     date1 = []
