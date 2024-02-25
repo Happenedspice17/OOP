@@ -37,12 +37,12 @@ def basic() -> None:
 
     etapa1 = sum_digits(month_red[-1] + day_red[-1])
     etapa2 = sum_digits(day_red[-1] + year_red[-1])
-    etapa3 = sum_digits((month_red[-1] + day_red[-1]) + (day_red[-1] + year_red[-1]))
+    etapa3 = sum_digits(etapa1[-1] + etapa2[-1])
     etapa4 = sum_digits(month_red[-1] + year_red[-1])
 
     desafio1 = sum_digits(abs((month_red[-1] - day_red[-1])))
     desafio2 = sum_digits(abs((day_red[-1] - year_red[-1])))
-    desafio3 = sum_digits(abs(((month_red[-1] - day_red[-1]) - (day_red[-1] - year_red[-1]))))
+    desafio3 = sum_digits(abs((desafio1[-1] - desafio2[-1])))
     desafio4 = sum_digits(abs((month_red[-1] - year_red[-1])))
 
     sombra1 = sum_digits(desafio1[-1] + desafio2[-1] + desafio3[-1])
@@ -66,7 +66,7 @@ def basic() -> None:
 
     print("-------------------------------------------------------------------------------")
 
-    print(f"Sombra1: {sombra1}\nSombra2: {sombra2}\nRelacion Espejo: {destino_red[-1] + etapa4[-1]}")
+    print(f"Sombra1: {sombra1}\nSombra2: {sombra2}\nRelacion Espejo: {sum_digits(destino_red[-1] + etapa4[-1])}")
 
     print("-------------------------------------------------------------------------------")
 
