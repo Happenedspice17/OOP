@@ -1,63 +1,140 @@
-def main_menu():
-    option = int(input("Choose an option: \n1. Basic\n2. Name\n3. All\n4. Exit\n"))
+def main_menu() -> int:
+    option = 0
+    option = int(input("Choose an option: \n1. Basic\n2. Name\n3. Complete\n4. Couples\n5. Exit\n"))
 
-    if option == 1:
-        basic()
-    elif option == 2:
-        name()
-    elif option == 3:
-        together()
-    else:
-        exit()
+    return option
 
 
-def basic():
+def basic() -> None:
+
+    date = []
+
     date = [int(item) for item in input("Fecha completa : ").split()]
+    # print(date)
 
     day = str(date[0]) + str(date[1])
     day_red = sum_digits(day)
-    print(f"Alma: {day} / {day_red}")
 
     month = str(date[2]) + str(date[3])
     month_red = sum_digits(month)
-    print(f"Ego: {month} / {month_red}")
 
     two_year = str(date[6]) + str(date[7])
     two_year_red = sum_digits(two_year)
-    print(f"Don: {two_year} / {two_year_red}")
 
     year = str(date[4]) + str(date[5]) + str(date[6]) + str(date[7])
     year_red = sum_digits(year)
-    print(f"Vidas Pasadas: {year} / {year_red}")
 
     proposito = karmas(sum(date))[0]
     proposito_red = sum_digits(proposito)
-    print(f"Proposito: {proposito} / {proposito_red}")
 
-    destino = karmas(day)[-1] + karmas(month)[-1] + karmas(year)[-1]
+    destino = sum_digits(day)[-1] + sum_digits(month)[-1] + sum_digits(year)[-1]
     destino_red = sum_digits(destino)
-    print(f"Destino: {destino} / {destino_red}\n\n")
+    
+    print(f"Alma: {day} / {day_red[-1]}")
+    print(f"Ego: {month} / {month_red[-1]}")
+    print(f"Don: {two_year} / {two_year_red[-1]}")
+    print(f"Vidas Pasadas: {year} / {year_red[-1]}")
+    print(f"Proposito: {proposito} / {proposito_red[-1]}")
+    print(f"Destino: {destino} / {destino_red[-1]}")
 
-    main_menu()
+    return date
 
 
-def name():
+def parejas() -> list:
+
+    date = []
+
+    date = [int(item) for item in input("Fecha completa de la primer persona: ").split()]
+    # print(date)
+
+    day = str(date[0]) + str(date[1])
+    day_red = sum_digits(day)
+
+    month = str(date[2]) + str(date[3])
+    month_red = sum_digits(month)
+
+    two_year = str(date[6]) + str(date[7])
+    two_year_red = sum_digits(two_year)
+
+    year = str(date[4]) + str(date[5]) + str(date[6]) + str(date[7])
+    year_red = sum_digits(year)
+
+    proposito = karmas(sum(date))[0]
+    proposito_red = sum_digits(proposito)
+
+    destino = sum_digits(day)[-1] + sum_digits(month)[-1] + sum_digits(year)[-1]
+    destino_red = sum_digits(destino)
+    
+    date1 = []
+
+    date1 = [int(item1) for item1 in input("Fecha completa de la segunda persona: ").split()]
+    # print(date)
+
+    day1 = str(date1[0]) + str(date1[1])
+    day_red1 = sum_digits(day1)
+
+    month1 = str(date1[2]) + str(date1[3])
+    month_red1 = sum_digits(month1)
+
+    two_year1 = str(date1[6]) + str(date1[7])
+    two_year_red1 = sum_digits(two_year1)
+
+    year1 = str(date1[4]) + str(date1[5]) + str(date1[6]) + str(date1[7])
+    year_red1 = sum_digits(year1)
+
+    proposito1 = karmas(sum(date1))[0]
+    proposito_red1 = sum_digits(proposito1)
+
+    destino1 = sum_digits(day1)[-1] + sum_digits(month1)[-1] + sum_digits(year1)[-1]
+    destino_red1 = sum_digits(destino1)
+
+
+    print(f"Alma: {day} / {day_red[-1]} -- {day1} / {day_red1[-1]} --> {day_red[-1] + day_red1[-1]}")
+    print(f"Ego: {month} / {month_red[-1]} -- {month1} / {month_red1[-1]} --> {month_red[-1] + month_red1[-1]}")
+    print(f"Don: {two_year} / {two_year_red[-1]} -- {two_year1} / {two_year_red1[-1]} --> {two_year_red[-1] + two_year_red1[-1]}")
+    print(f"Vidas Pasadas: {year} / {year_red[-1]} -- {year1} / {year_red1[-1]} --> {year_red[-1] + year_red1[-1]}")
+    print(f"Proposito: {proposito} / {proposito_red[-1]} -- {proposito1} / {proposito_red1[-1]} --> {proposito_red[-1] + proposito_red1[-1]}")
+    print(f"Destino: {destino} / {destino_red[-1]} -- {destino1} / {destino_red1[-1]} --> {destino_red[-1] + destino_red1[-1]}\n\n")
+
+
+def name() -> None:
+    # Define the mapping from letters to numbers
     letter_to_number = {
-        "a": 1, "j": 1, "s": 1,
-        "b": 2, "k": 2, "t": 2,
-        "c": 3, "l": 3, "u": 3,
-        "d": 4, "m": 4, "v": 4,
-        "e": 5, "n": 5, "w": 5, "ñ": 5,
-        "f": 6, "o": 6, "x": 6,
-        "g": 7, "p": 7, "y": 7,
-        "h": 8, "q": 8, "z": 8,
-        "i": 9, "r": 9
+        "a": 1,
+        "j": 1,
+        "s": 1,
+        "b": 2,
+        "k": 2,
+        "t": 2,
+        "c": 3,
+        "l": 3,
+        "u": 3,
+        "d": 4,
+        "m": 4,
+        "v": 4,
+        "e": 5,
+        "n": 5,
+        "w": 5,
+        "ñ": 5,
+        "f": 6,
+        "o": 6,
+        "x": 6,
+        "g": 7,
+        "p": 7,
+        "y": 7,
+        "h": 8,
+        "q": 8,
+        "z": 8,
+        "i": 9,
+        "r": 9
     }
 
     vowels = "aeiou"
+    # Create cpy_name using list comprehension
     vowels_name = []
     consontants_name = []
 
+    # Get the full name from the user
     full_name = input("Nombre completo: ").lower()
 
     for letter in full_name:
@@ -72,15 +149,26 @@ def name():
         else:
             consontants_name.append(letter)
 
-    vowels_num = [letter_to_number[vowel] for vowel in vowels_name if vowel in letter_to_number]
-    consontants_num = [letter_to_number[consontant] for consontant in consontants_name if consontant in letter_to_number]
+    vowels_num = [
+        letter_to_number[vowel] for vowel in vowels_name
+        if vowel in letter_to_number
+    ]
+
+    consontants_num = [
+        letter_to_number[consontant] for consontant in consontants_name
+        if consontant in letter_to_number
+    ]
 
     vowels_total = sum(vowels_num)
     consontants_total = sum(consontants_num)
 
-    both = [vowels_total, consontants_total]
-    both_total = sum(both)
-    both_count = count_numbers(both)
+    both = []
+    for each_vowel_num in vowels_num:
+        both.append(each_vowel_num)
+    for each_consonant_num in consontants_num:
+        both.append(each_consonant_num)
+
+    print(both)
     val1 = both.count(1)
     val2 = both.count(2)
     val3 = both.count(3)
@@ -91,58 +179,105 @@ def name():
     val8 = both.count(8)
     val9 = both.count(9)
 
-    vowels_total_sum = sum_digits(vowels_total)
-    vowels_total = vowels_total_sum[0]
-    vowels_sum = vowels_total_sum[1]
-
-    consontants_total_sum = sum_digits(consontants_total)
-    consontants_total = consontants_total_sum[0]
-    consontants_sum = consontants_total_sum[1]
-
-    both_total_sum = sum_digits(both_total)
-    both_total = both_total_sum[0]
-    both_sum = both_total_sum[1]
-
-    print(f"Escencia: {vowels_total} / {vowels_sum}")
-    print(f"Imagen: {consontants_total} / {consontants_sum}")
-    print(f"Mision: {both_total} / {both_sum}")
-    print(f"1: {val1} / 2: {val2} / 3: {val3} / 4: {val4} / 5: {val5} / 6: {val6} / 7: {val7} / 8: {val8} / 9: {val9}")
-    print(f"Fisico: {val4 + val5}\nMental: {val1 + val8}\nEmocional: {val2 + val3+ val6}\nEspiritual: {val7 + val9}")
-
-    main_menu()
+    print(
+        f"Escencia: {sum_digits(vowels_total)[0]} / {sum_digits(vowels_total)[1]}"
+    )
+    print(
+        f"Imagen: {sum_digits(consontants_total)[0]} / {sum_digits(consontants_total)[1]}"
+    )
+    print(f"Mision: {sum_digits(sum(both))[0]} / {sum_digits(sum(both))[1]}\n")
+    print(
+        f"1: {val1} / 2: {val2} / 3: {val3}\n4: {val4} / 5: {val5} / 6: {val6}\n7: {val7} / 8: {val8} / 9: {val9}\n"
+    )
+    print(
+        f"Fisico: {val4 + val5}\nMental: {val1 + val8}\nEmocional: {val2 + val3+ val6}\nEspiritual: {val7 + val9}"
+    )
 
 
-def together():
-    basic()
-    name()
+def together() -> None:
+    date_arr = basic()
+    print("-------------------------------------------------------------------------------")
+    #name()
+    print("-------------------------------------------------------------------------------")
+
+    
+    day = str(date_arr[0]) + str(date_arr[1])
+    day_red = sum_digits(day)
+
+    month = str(date_arr[2]) + str(date_arr[3])
+    month_red = sum_digits(month)
+
+    year = str(date_arr[4]) + str(date_arr[5]) + str(date_arr[6]) + str(date_arr[7])
+    year_red = sum_digits(year)
+
+    destino = sum_digits(day)[-1] + sum_digits(month)[-1] + sum_digits(year)[-1]
+    destino_red = sum_digits(destino)
+
+    etapa1 = karmas(month_red[-1] + day_red[-1])
+    etapa2 = karmas(day_red[-1] + year_red[-1])
+    etapa3 = karmas((month_red[-1] + day_red[-1]) + (day_red[-1] + year_red[-1]))
+    etapa4 = karmas(month_red[-1] + year_red[-1])
+
+    desafio1 = karmas(abs((date_arr[2] + date_arr[3]) - (date_arr[0] + date_arr[1])))
+    desafio2 = karmas(abs((date_arr[0] + date_arr[1]) - (date_arr[4] + date_arr[5] + date_arr[6] + date_arr[7])))
+    desafio3 = karmas(abs(((date_arr[2] + date_arr[3]) - (date_arr[0] + date_arr[1])) - (date_arr[0] + date_arr[1]) - (date_arr[4] + date_arr[5] + date_arr[6] + date_arr[7])))
+    desafio4 = karmas(abs((date_arr[2] + date_arr[3]) - (date_arr[4] + date_arr[5] + date_arr[6] + date_arr[7])))
+
+    print(f"Etapa1: {etapa1[0]} --> Etapa2: {etapa2[0]} --> Etapa3: {etapa3[0]} --> Etapa4: {etapa4[0]}")
+    print(f"Desafio1: {desafio1[0]} --> Desafio2: {desafio2[0]} --> Desafio3: {desafio3[0]} --> Desafio4: {desafio4[0]}")
+    
+    print("-------------------------------------------------------------------------------")    
+    
+    print(f"Sombra1: {karmas(desafio1[-1] + desafio2[-1] + desafio3[-1])}\nSombra2: {[-1] + (karmas(desafio1[-1] + desafio2[-1] + desafio3[-1]))}\nRelacion Espejo: {destino_red[-1] + etapa4[-1]}")
+    
+    print("-------------------------------------------------------------------------------")
+    
+    print(f"Coronilla: {etapa4}\n3er Ojo: {etapa3}\nGarganta: {karmas(etapa1[-1] + etapa2[-1])}\nCorazon: {karmas(date_arr[0] + date_arr[1] + date_arr[2] + date_arr[3] +date_arr[4] + date_arr[5] + date_arr[6] + date_arr[7])}\nPlexo: {karmas(desafio1[-1] + desafio2[-1])}\nSacro: {desafio3}\nRaiz: {desafio4}")
+
+
 
 
 def karmas(value) -> tuple:
     masters = [11, 22, 33, 44, 55, 66, 77, 88, 99]
 
     if int(value) >= 9 and int(value) not in masters:
-        return int(value), int(sum_digits(value))
+        return int(value), sum_digits(value)
     else:
         return int(value),
 
 
-def sum_digits(num) -> tuple:
-    return num, sum(int(digit) for digit in str(num))
+def sum_digits(num) -> str:
+    return str(num), sum(int(digit) for digit in str(num))
 
 
-
-def count_numbers(n):
-    counts = {}
+def count_numbers(n) -> list:
+    """Count the occurrence of each digit in a number."""
+    counts = [0] * 10
     for num in n:
         while num:
-            digit = num % 10
-            counts[digit] = counts.get(digit, 0) + 1
+            counts[num % 10] += 1
             num //= 10
     return counts
 
 
-def exit():
+def exit_program() -> None:
     print("Exiting program...")
 
 
-main_menu()
+program_running = True
+
+while program_running:
+    option = 0
+    option = main_menu()
+    if option == 1:
+        basic()
+    elif option == 2:
+        name()
+    elif option == 3:
+        together()
+    elif option == 4:
+        parejas()
+    else:
+        program_running = False
+        exit_program()
+

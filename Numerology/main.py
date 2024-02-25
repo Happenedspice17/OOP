@@ -1,6 +1,6 @@
 def main_menu() -> int:
     option = 0
-    option = int(input("Choose an option: \n1. Basic\n2. Name\n3. Both\n4. Couples\n5. Exit\n"))
+    option = int(input("Choose an option: \n1. Basic\n2. Name\n3. Complete\n4. Couples\n5. Exit\n"))
 
     return option
 
@@ -35,7 +35,9 @@ def basic() -> None:
     print(f"Don: {two_year} / {two_year_red[-1]}")
     print(f"Vidas Pasadas: {year} / {year_red[-1]}")
     print(f"Proposito: {proposito} / {proposito_red[-1]}")
-    print(f"Destino: {destino} / {destino_red[-1]}\n\n")
+    print(f"Destino: {destino} / {destino_red[-1]}")
+
+    return date
 
 
 def parejas() -> list:
@@ -87,12 +89,12 @@ def parejas() -> list:
     destino_red1 = sum_digits(destino1)
 
 
-    print(f"Alma: {day} / {day_red[-1]} -- {day1} / {day_red1[-1]} -S- {day_red[-1] + day_red1[-1]}")
-    print(f"Ego: {month} / {month_red[-1]} -- {month1} / {month_red1[-1]} -S- {month_red[-1] + month_red1[-1]}")
-    print(f"Don: {two_year} / {two_year_red[-1]} -- {two_year1} / {two_year_red1[-1]} -S- {two_year_red[-1] + two_year_red1[-1]}")
-    print(f"Vidas Pasadas: {year} / {year_red[-1]} -- {year1} / {year_red1[-1]} -S- {year_red[-1] + year_red1[-1]}")
-    print(f"Proposito: {proposito} / {proposito_red[-1]} -- {proposito1} / {proposito_red1[-1]} -S- {proposito_red[-1] + proposito_red1[-1]}")
-    print(f"Destino: {destino} / {destino_red[-1]} -- {destino1} / {destino_red1[-1]} -S- {destino_red[-1] + destino_red1[-1]}\n\n")
+    print(f"Alma: {day} / {day_red[-1]} -- {day1} / {day_red1[-1]} --> {day_red[-1] + day_red1[-1]}")
+    print(f"Ego: {month} / {month_red[-1]} -- {month1} / {month_red1[-1]} --> {month_red[-1] + month_red1[-1]}")
+    print(f"Don: {two_year} / {two_year_red[-1]} -- {two_year1} / {two_year_red1[-1]} --> {two_year_red[-1] + two_year_red1[-1]}")
+    print(f"Vidas Pasadas: {year} / {year_red[-1]} -- {year1} / {year_red1[-1]} --> {year_red[-1] + year_red1[-1]}")
+    print(f"Proposito: {proposito} / {proposito_red[-1]} -- {proposito1} / {proposito_red1[-1]} --> {proposito_red[-1] + proposito_red1[-1]}")
+    print(f"Destino: {destino} / {destino_red[-1]} -- {destino1} / {destino_red1[-1]} --> {destino_red[-1] + destino_red1[-1]}\n\n")
 
 
 def name() -> None:
@@ -188,13 +190,37 @@ def name() -> None:
         f"1: {val1} / 2: {val2} / 3: {val3}\n4: {val4} / 5: {val5} / 6: {val6}\n7: {val7} / 8: {val8} / 9: {val9}\n"
     )
     print(
-        f"Fisico: {val4 + val5}\nMental: {val1 + val8}\nEmocional: {val2 + val3+ val6}\nEspiritual: {val7 + val9}\n\n"
+        f"Fisico: {val4 + val5}\nMental: {val1 + val8}\nEmocional: {val2 + val3+ val6}\nEspiritual: {val7 + val9}"
     )
 
 
 def together() -> None:
-    basic()
+    date_arr = basic()
+    print("-------------------------------------------------------------------------------")
     name()
+    print("-------------------------------------------------------------------------------")
+
+    
+    destino = sum(date_arr)
+
+    etapa1 = karmas(date_arr[2] + date_arr[3] + date_arr[0] + date_arr[1])
+    etapa2 = karmas(date_arr[0] + date_arr[1] + date_arr[4] + date_arr[5] + date_arr[6] + date_arr[7])
+    etapa3 = karmas(etapa1[-1] + etapa2[-1])
+    etapa4 = karmas(date_arr[2] + date_arr[3] + date_arr[4] + date_arr[5] + date_arr[6] + date_arr[7])
+
+    desafio1 = karmas(abs((date_arr[2] + date_arr[3]) - (date_arr[0] + date_arr[1])))
+    desafio2 = karmas(abs((date_arr[0] + date_arr[1]) - (date_arr[4] + date_arr[5] + date_arr[6] + date_arr[7])))
+    desafio3 = karmas(abs(((date_arr[2] + date_arr[3]) - (date_arr[0] + date_arr[1])) - (date_arr[0] + date_arr[1]) - (date_arr[4] + date_arr[5] + date_arr[6] + date_arr[7])))
+    desafio4 = karmas(abs((date_arr[2] + date_arr[3]) - (date_arr[4] + date_arr[5] + date_arr[6] + date_arr[7])))
+
+    print(f"Etapa1: {etapa1} --> Etapa2: {etapa2} --> Etapa3: {etapa3} --> Etapa4: {etapa4}")
+    print(f"Desafio1: {desafio1} --> Desafio2: {desafio2} --> Desafio3: {desafio3} --> Desafio4: {desafio4}")
+    print("-------------------------------------------------------------------------------")
+    print(f"Sombra1: {karmas(desafio1[-1] + desafio2[-1] + desafio3[-1])}\nSombra2: {destino + (karmas(desafio1[-1] + desafio2[-1] + desafio3[-1]))}\nRelacion Espejo: {destino + etapa4}")
+    print("-------------------------------------------------------------------------------")
+    print(f"Coronilla: {etapa4}\n3er Ojo: {etapa3}\nGarganta: {karmas(etapa1[-1] + etapa2[-1])}\nCorazon: {karmas(date_arr[0] + date_arr[1] + date_arr[2] + date_arr[3] +date_arr[4] + date_arr[5] + date_arr[6] + date_arr[7])}\nPlexo: {karmas(desafio1[-1] + desafio2[-1])}\nSacro: {desafio3}\nRaiz: {desafio4}")
+
+
 
 
 def karmas(value) -> tuple:
