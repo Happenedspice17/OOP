@@ -129,8 +129,7 @@ def parejas() -> list:
     proposito1 = karmas(sum(date1))[0]
     proposito_red1 = sum_digits(proposito1)
 
-    destino1 = sum_digits(day1)[-1] + \
-        sum_digits(month1)[-1] + sum_digits(year1)[-1]
+    destino1 = sum_digits(day1)[-1] +  sum_digits(month1)[-1] + sum_digits(year1)[-1]
     destino_red1 = sum_digits(destino1)
 
     print(f"Alma: {day} / {day_red[-1]} -- {day1} / {day_red1[-1]} --> {day_red[-1] + day_red1[-1]}")
@@ -247,7 +246,10 @@ def karmas(value) -> tuple:
 
 
 def sum_digits(num) -> str:
-    return str(num), sum(int(digit) for digit in str(num))
+    str(num)
+    num2 = sum(int(digit) for digit in str(num))
+    str(num2)
+    return num, num2, sum(int(digit1) for digit1 in str(num2))
 
 
 def count_numbers(n) -> list:
