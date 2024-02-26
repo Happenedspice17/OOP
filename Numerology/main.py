@@ -46,6 +46,7 @@ def basic() -> None:
 
     sombra1 = sum_digits(desafio1[-1] + desafio2[-1] + desafio3[-1])
     sombra2 = sum_digits(destino_red[-1] + sombra1[-1])
+    rel_esp = sum_digits(destino_red[-1] + etapa4[-1])
 
     #* Prints
 
@@ -65,7 +66,7 @@ def basic() -> None:
 
     print("-------------------------------------------------------------------------------")
 
-    print(f"Sombra1: {sombra1}\nSombra2: {sombra2}\nRelacion Espejo: {sum_digits(destino_red[-1] + etapa4[-1])}")
+    print(f"Sombra1: {sombra1}\nSombra2: {sombra2}\nRelacion Espejo: {rel_esp}")
 
     print("-------------------------------------------------------------------------------")
 
@@ -103,6 +104,15 @@ def parejas() -> list:
     destino = sum_digits(day)[-1] + sum_digits(month)[-1] + sum_digits(year)[-1]
     destino_red = sum_digits(destino)
 
+    desafio1 = sum_digits(abs((month_red[-1] - day_red[-1])))
+    desafio2 = sum_digits(abs((day_red[-1] - year_red[-1])))
+    desafio3 = sum_digits(abs((desafio1[-1] - desafio2[-1])))
+    etapa4 = sum_digits(month_red[-1] + year_red[-1])
+
+    sombra1 = sum_digits(desafio1[-1] + desafio2[-1] + desafio3[-1])
+    sombra2 = sum_digits(destino_red[-1] + sombra1[-1])
+    rel_esp = sum_digits(destino_red[-1] + etapa4[-1])
+
     date1 = []
 
     date1 = [int(item1) for item1 in input(
@@ -127,12 +137,22 @@ def parejas() -> list:
     destino1 = sum_digits(day1)[-1] +  sum_digits(month1)[-1] + sum_digits(year1)[-1]
     destino_red1 = sum_digits(destino1)
 
+    desafio11 = sum_digits(abs((month_red1[-1] - day_red1[-1])))
+    desafio22 = sum_digits(abs((day_red1[-1] - year_red1[-1])))
+    desafio33 = sum_digits(abs((desafio11[-1] - desafio22[-1])))
+    etapa44 = sum_digits(month_red1[-1] + year_red1[-1])
+
+    sombra11 = sum_digits(desafio11[-1] + desafio22[-1] + desafio33[-1])
+    sombra22 = sum_digits(destino_red1[-1] + sombra11[-1])
+    rel_esp1 = sum_digits(destino_red1[-1] + etapa44[-1])
+
     print(f"Alma: {day} / {day_red[-1]} -- {day1} / {day_red1[-1]} --> {day_red[-1] + day_red1[-1]}")
     print(f"Ego: {month} / {month_red[-1]} -- {month1} / {month_red1[-1]} --> {month_red[-1] + month_red1[-1]}")
     print(f"Don: {two_year} / {two_year_red[-1]} -- {two_year1} / {two_year_red1[-1]} --> {two_year_red[-1] + two_year_red1[-1]}")
     print(f"Vidas Pasadas: {year} / {year_red[-1]} -- {year1} / {year_red1[-1]} --> {year_red[-1] + year_red1[-1]}")
     print(f"Proposito: {proposito} / {proposito_red[-1]} -- {proposito1} / {proposito_red1[-1]} --> {proposito_red[-1] + proposito_red1[-1]}")
     print(f"Destino: {destino} / {destino_red[-1]} -- {destino1} / {destino_red1[-1]} --> {destino_red[-1] + destino_red1[-1]}\n\n")
+    print(f"S1: {sombra1}/S2: {sombra2}/R1 Espejo: {rel_esp} -- S1: {sombra11}/S2: {sombra22}/R1 Espejo: {rel_esp1}")
 
 
 def name() -> None:
