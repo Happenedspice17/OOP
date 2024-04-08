@@ -11,7 +11,8 @@ def basic() -> None:
 
     #* Append each item
     date = [int(item) for item in input("Fecha completa : ").split()]
-    # print(date)
+    # print(date)1.
+    
 
     #* Formulas and reductions
     day = str(date[0]) + str(date[1])
