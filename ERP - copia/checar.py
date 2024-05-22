@@ -1,8 +1,9 @@
 import sys
 import sqlite3
-from PyQt6.QtGui import QFont, QPixmap, QPalette, QColor
+from PyQt6.QtGui import QFont, QPixmap
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QMessageBox, QCheckBox
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPalette, QColor
 
 
 class login(QWidget):
@@ -21,7 +22,7 @@ class login(QWidget):
         self.show()
 
     def init_db(self):
-        self.conn = sqlite3.connect('C:/Users/emili/Documents/OOP/04-SQLite/Clase4DB/usuarios.db')
+        self.conn = sqlite3.connect('usuarios.db')
         self.c = self.conn.cursor()
         self.c.execute('''
            CREATE TABLE IF NOT EXISTS users (
@@ -55,17 +56,20 @@ class login(QWidget):
         self.c.execute('SELECT * FROM users WHERE username = ?', (username,))
         user = self.c.fetchone()
         if user:
-            QMessageBox.information(self, 'Usuario encontrado', f'Usuario: {user[1]}, Contraseña: {user[2]}')
+            QMessageBox.information(self, 'Usuario encontrado', f'Usuario: {
+                                    user[0]}, Contraseña: {user[1]}')
         else:
-            QMessageBox.warning(self, 'No encontrado', 'Usuario no encontrado.')
+            QMessageBox.warning(self, 'No encontrado',
+                                'Usuario no encontrado.')
 
     def mostrar_todos(self):
         self.c.execute('SELECT * FROM users')
         users = self.c.fetchall()
-        msg = '\n'.join([f'Usuario: {user[1]}, Contraseña: {user[2]}' for user in users])
+        msg = '\n'.join([f'Usuario: {user[0]}, Contraseña: {
+                        user[1]}' for user in users])
         QMessageBox.information(self, 'Todos los usuarios', msg)
 
-    def generar_formulario(self) -> None:
+    def generar_formulario(self):
         user_label = QLabel(self)
         user_label.setText("usuario: ")
         user_label.setFont(QFont("Arial", 10))
