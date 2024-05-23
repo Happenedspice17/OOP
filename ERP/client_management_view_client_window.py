@@ -8,18 +8,18 @@ from PyQt6.QtCore import Qt
 class ViewClientWindow(QWidget):
     def __init__(self, menu_anterior):
         super().__init__()
-        self.view_user_widget(menu_anterior)
+        self.view_client_widget(menu_anterior)
 
-    def view_user_widget(self, menu_anterior):
-        self.setFixedWidth(400)
+    def view_client_widget(self, menu_anterior):
+        self.setFixedWidth(700)
         layout = QVBoxLayout()
 
         main_label = QLabel(self)
-        main_label.setText("View Users Menu")
+        main_label.setText("View Clients Menu")
         main_label.setFont(QFont("Arial", 16))
 
         display_users = QLabel(self)
-        display_users.setText(self.view_users())
+        display_users.setText(self.view_clients())
         display_users.setFont(QFont("Arial", 10))
 
         self.boton_regresar = QPushButton("Return Prev Menu")
@@ -30,13 +30,13 @@ class ViewClientWindow(QWidget):
         layout.addWidget(self.boton_regresar)
 
         self.setLayout(layout)
-        self.setWindowTitle('ERP Sales System - View User')
+        self.setWindowTitle('ERP Sales System - View Clients')
 
-    def view_users(self):
+    def view_clients(self):
         self.conn = sqlite3.connect('erp_sales.db')
         self.c = self.conn.cursor()
-        self.c.execute('SELECT * FROM Users')
+        self.c.execute('SELECT * FROM Clients')
         users = self.c.fetchall()
-        msg = '\n'.join([f'Usuario: {user[1]}, Contraseña: {user[2]}' for user in users])
+        msg = '\n'.join([f'Name: {user[1]}, RFC: {user[2]}, Fiscal regimen: {user[3]}, Address: {user[4]}, City: {user[5]}, State: {user[6]}, Zip Code: {user[7]}' for user in users])
 
         return msg

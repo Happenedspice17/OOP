@@ -7,7 +7,7 @@ from PyQt6.QtCore import Qt
 
 # Importamos las ventanas
 from user_managment_window import UserManagement
-from client_managment_window import ClientManagment
+from client_management_window import ClientManagement
 from product_managment_window import ProductManagment
 from sales_managment_window import SalesManagment
 from reporting_window import Reporting
@@ -255,7 +255,7 @@ class MainWindowAdmin(QWidget):
         self.hide()
 
     def client_managment(self):
-        self.ventana = ClientManagment(self.mostrar_menu)
+        self.ventana = ClientManagement(self.mostrar_menu)
         self.ventana.show()
         self.hide()
 

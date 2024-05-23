@@ -107,6 +107,10 @@ class EditUserWindow(QWidget):
         selected_role = self.role_input.currentText()
         name = self.name_input.text()
         lastname = self.last_name_input.text()
+
+        if not all([selected_user_input, new_username, password, selected_role, name, lastname]):
+            QMessageBox.warning(self, 'Error', 'All fields are required.')
+            return
         
         self.conn = sqlite3.connect('erp_sales.db')
         self.c = self.conn.cursor()
@@ -114,6 +118,11 @@ class EditUserWindow(QWidget):
         try:
             self.c.execute('''UPDATE Users SET username=?, password=?, role=?, name=?, lastname=? WHERE username=?''', (new_username, password, selected_role, name, lastname, selected_user_input))
             self.conn.commit()
-            QMessageBox.information(self, 'Éxito', 'User updated succesfully')
-        except sqlite3.IntegrityError:
-            QMessageBox.warning(self, 'Error', "Can't complete")
+            if self.c.rowcount == 0:
+                QMessageBox.warning(self, 'Error', 'User does not exist.')
+            else:
+                QMessageBox.information(self, 'Success', 'Client updated successfully.')
+        except sqlite3.Error as e:
+            QMessageBox.warning(self, 'Error', f'Database error: {e}')
+        finally:
+            self.conn.close()

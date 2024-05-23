@@ -58,4 +58,4 @@ class DeleteUserWindow(QWidget):
             self.conn.commit()
             QMessageBox.information(self, 'Éxito', 'User deleted succesfully')
         except sqlite3.IntegrityError:
-            QMessageBox.warning(self, 'Error', 'User already exist.')
+            QMessageBox.warning(self, 'Error', 'User does not exist.')

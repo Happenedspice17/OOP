@@ -2,14 +2,14 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushB
 from PyQt6.QtGui import QFont, QPixmap, QPalette, QColor
 from PyQt6.QtCore import Qt
 
-from client_managment_add_client_window import AddClientWindow
-from client_managment_edit_client_window import EditClientWindow
-from client_managment_view_client_window import ViewClientWindow
-from client_managment_delete_client_window import DeleteClientWindow
+from client_management_add_client_window import AddClientWindow
+from client_management_edit_client_window import EditClientWindow
+from client_management_view_client_window import ViewClientWindow
+from client_management_delete_client_window import DeleteClientWindow
 
 
 # Crear la segunda ventana de manejo de clientes
-class ClientManagment(QWidget):
+class ClientManagement(QWidget):
     def __init__(self, menu_anterior):
         super().__init__()
         self.setFixedWidth(400)
@@ -44,24 +44,25 @@ class ClientManagment(QWidget):
 
     def mostrar_menu(self):
         self.show()
-        self.ventana.close()
+        if hasattr(self, 'ventana'):
+            self.ventana.close()
 
     def add_user_window(self):
-        self.ventana = AddUserWindow(self.mostrar_menu)
+        self.ventana = AddClientWindow(self.mostrar_menu)
         self.ventana.show()
         self.hide()
 
     def edit_user_window(self):
-        self.ventana = EditUserWindow(self.mostrar_menu)
+        self.ventana = EditClientWindow(self.mostrar_menu)
         self.ventana.show()
         self.hide()
 
     def view_user_window(self):
-        self.ventana = ViewUserWindow(self.mostrar_menu)
+        self.ventana = ViewClientWindow(self.mostrar_menu)
         self.ventana.show()
         self.hide()
 
     def delete_user_window(self):
-        self.ventana = DeleteUserWindow(self.mostrar_menu)
+        self.ventana = DeleteClientWindow(self.mostrar_menu)
         self.ventana.show()
         self.hide()
