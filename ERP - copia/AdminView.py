@@ -9,6 +9,7 @@ from user_managment_window import UserManagement
 from client_management_window import ClientManagement
 from product_management_window import ProductManagement
 from sales_management_window import SalesManagement
+from reports_main_window import ReportManagement
 
 class MainWindowAdmin(QWidget):
     def __init__(self, user_id):
@@ -19,7 +20,7 @@ class MainWindowAdmin(QWidget):
         layout = QVBoxLayout()
 
         main_label = QLabel(self)
-        main_label.setText("ERP Main Admin Menu lol xd")
+        main_label.setText("ERP Main Admin Menu")
         main_label.setFont(QFont("Arial", 16))
         layout.addWidget(main_label)
 
@@ -68,10 +69,9 @@ class MainWindowAdmin(QWidget):
         self.hide()
 
     def reporting(self):
-        # self.ventana = Reporting(self.mostrar_menu)
-        # self.ventana.show()
-        # self.hide()
-        pass
+        self.ventana = ReportManagement(user_id=self.user_id, menu_anterior=self.mostrar_menu)
+        self.ventana.show()
+        self.hide()
 
     def logout(self):
         self.log_action(self.user_id, "logout", "logout", f"User with id {self.user_id} logout the system")

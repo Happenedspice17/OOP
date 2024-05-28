@@ -16,8 +16,7 @@ class MainWindowSalesManagement(QWidget):
         self.setFixedWidth(400)
         layout = QVBoxLayout()
 
-        print("lol")
-
+        
         main_label = QLabel(self)
         main_label.setText("ERP Main Sales Management Menu")
         main_label.setFont(QFont("Arial", 16))
