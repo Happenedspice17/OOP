@@ -1,14 +1,12 @@
-
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget, QMessageBox, QCheckBox, QComboBox
 from PyQt6.QtGui import QFont, QPixmap, QPalette, QColor
 from PyQt6.QtCore import Qt
 
 
-from user_managment_add_user_window import AddUserWindow
-from user_managment_edit_user_window import EditUserWindow
-from user_managment_view_user_window import ViewUserWindow
-from user_managment_delete_user_window import DeleteUserWindow
-
+from user_management_add_user_window import AddUserWindow
+from user_management_edit_user_window import EditUserWindow
+from user_management_view_user_window import ViewUserWindow
+from user_management_delete_user_window import DeleteUserWindow
 
 
 # Crear la segunda ventana de manejo de usuarios
@@ -19,7 +17,7 @@ class UserManagement(QWidget):
         layout = QVBoxLayout()
 
         main_label = QLabel(self)
-        main_label.setText("User Managment Menu")
+        main_label.setText("User Management Menu")
         main_label.setFont(QFont("Arial", 16))
         layout.addWidget(main_label)
 

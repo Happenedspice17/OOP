@@ -5,18 +5,29 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushB
 from PyQt6.QtGui import QFont, QPixmap, QPalette, QColor
 from PyQt6.QtCore import Qt
 
-# Importamos las ventanas
-from user_managment_window import UserManagement
-from client_management_window import ClientManagement
-from product_management_window import ProductManagement
-# from sales_management_window import SalesManagement
-# from reporting_window import Reporting
+# Imports of the users logins
+from AdminView import MainWindowAdmin
+from HRView import MainWindowHR
+from ProdManView import MainWindowProductManagement
+from ClientManView import MainWindowClientManagement
+from SalesManView import SalesManagement
 
+
+# SELECT * FROM FiscalRegimen
 
 # Función para hacer la database
 # def init_db():
 #     conn = sqlite3.connect('erp_sales.db')
 #     cursor = conn.cursor()
+
+#     cursor.execute('''CREATE TABLE IF NOT EXISTS Logs (
+#                         id INTEGER PRIMARY KEY AUTOINCREMENT,
+#                         timestamp TEXT NOT NULL,
+#                         user_id INTEGER NOT NULL,
+#                         action TEXT NOT NULL,
+#                         entity TEXT NOT NULL,
+#                         details TEXT NOT NULL
+#                       )''')
     
 #     cursor.execute('''CREATE TABLE IF NOT EXISTS Users (
 #                         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -145,11 +156,16 @@ class LoginForm(QWidget):
         super().__init__()
         self.initUI()
 
+    # Initialize a basic UI
     def initUI(self):
         self.setFixedWidth(400)
         #self.setFixedHeight(400)
 
         layout = QVBoxLayout()
+
+        main_label = QLabel(self)
+        main_label.setText("Login Menu ")
+        main_label.setFont(QFont("Arial", 16))
 
         username_label = QLabel(self)
         username_label.setText("Username: ")
@@ -171,6 +187,7 @@ class LoginForm(QWidget):
         self.login_button = QPushButton('Login', self)
         self.login_button.clicked.connect(self.check_credentials)
         
+        layout.addWidget(main_label)
         layout.addWidget(username_label)
         layout.addWidget(self.username_input)
         layout.addWidget(password_label)
@@ -181,30 +198,67 @@ class LoginForm(QWidget):
         self.setWindowTitle('ERP Sales System - Login')
         self.show()
 
-    # Función para checar las credenciales de quien va a hacer login
+    # Fn to check creds
     def check_credentials(self):
 
-        # Metemos como input los datos del usuario
+        # User inputs
         username = self.username_input.text()
         password = self.password_input.text()
 
-        # Nos conectamos a la data base
+        # Conect the db
         conn = sqlite3.connect('erp_sales.db')
         cursor = conn.cursor()
         
-        # Buscamos en la database, si existe nos devuelve el usuario
+        # search in db if user exist
         cursor.execute('SELECT * FROM Users WHERE username = ? AND password = ?', (username, password))
         user = cursor.fetchone()
         
-        # Si es verdadero, hacemos login
+        # if true we login
         if user:
             role = user[3]
+            user_id = user[0]
+
+            print(user[0], user[1], user[2], user[3],)
+
             if role.lower() == "admin":
+                print("logged in as an admin")
                 QMessageBox.information(self, 'Success', 'Login Successful')
-                self.main_window = MainWindowAdmin()
+                self.main_window = MainWindowAdmin(user_id)
+                self.log_action(user_id, "admin_login", "login", "Admin logged in")
+                self.main_window.show()
+                self.close()
+
+            elif role.lower() == "hr":
+                print("logged in as an hr")
+                QMessageBox.information(self, 'Success', 'Login Successful')
+                self.main_window = MainWindowHR(user_id)
+                self.log_action(user_id, "hr_login", "login", "HR logged in")
+                self.main_window.show()
+                self.close()
+
+            elif role.lower() == "sales management":
+                print("logged in as a sales manage")
+                QMessageBox.information(self, 'Success', 'Login Successful')
+                self.main_window = MainWindowSalesManagement(user_id)
+                self.log_action(user_id, "sales_management_login", "login", "Sales Management logged in")
+                self.main_window.show()
+                self.close()
+
+            elif role.lower() == "client management":
+                QMessageBox.information(self, 'Success', 'Login Successful')
+                self.main_window = MainWindowClientManagement(user_id)
+                self.log_action(user_id, "client_management_login", "login", "Client Management logged in")
+                self.main_window.show()
+                self.close()
+
+            elif role.lower() == "product management":
+                QMessageBox.information(self, 'Success', 'Login Successful')
+                self.main_window = MainWindowProductManagement(user_id)
+                self.log_action(user_id, "product_management_login", "login", "Product Management logged in")
                 self.main_window.show()
                 self.close()
             else:
+                print("error")
                 self.close()
         # Si no es verdadero, nos manda error y volvemos a la pagina principal
         else:
@@ -212,12 +266,27 @@ class LoginForm(QWidget):
 
         # Cerramos la conexión
         conn.close()
+    
+    def log_action(self, user_id, action, entity, details):
+        try:
+            conn = sqlite3.connect('erp_sales.db')
+            cursor = conn.cursor()
+            
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            cursor.execute('''INSERT INTO Logs (timestamp, user_id, action, entity, details) VALUES (?, ?, ?, ?, ?)''', (timestamp, user_id, action, entity, details))
+            
+            conn.commit()
+            conn.close()
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
 
 
-# Esta ventana se enseña después de hacer el login correctamente con el usuario admin
-class MainWindowAdmin(QWidget):
-    def __init__(self):
+
+
+class MainWindowSalesManagement(QWidget):
+    def __init__(self, user_id):
         super().__init__()
+        self.user_id = user_id
         self.setWindowTitle("ERP Main Menu")
         self.setFixedWidth(400)
         layout = QVBoxLayout()
@@ -229,11 +298,7 @@ class MainWindowAdmin(QWidget):
 
         # Crear y añadir los botones al diseño
         botones = [
-            ("User Managment", self.user_managment),
-            ("Client Management", self.client_managment),
-            ("Product Management", self.product_managment),
             ("Sales Management", self.sales_managment),
-            ("Reporting", self.reporting),
             ("Log Out", self.logout)
             
         ]
@@ -247,44 +312,37 @@ class MainWindowAdmin(QWidget):
         self.setLayout(layout)
         self.show()
 
-    # Ver como sacar las funciones para que dependiendo del rol las podamos usar 
-    # En vez de copiar y pear
-    def user_managment(self):
-        self.ventana = UserManagement(self.mostrar_menu)
-        self.ventana.show()
-        self.hide()
-
-    def client_managment(self):
-        self.ventana = ClientManagement(self.mostrar_menu)
-        self.ventana.show()
-        self.hide()
-
-    def product_managment(self):
-        self.ventana = ProductManagement(self.mostrar_menu)
-        self.ventana.show()
-        self.hide()
 
     def sales_managment(self):
-        self.ventana = SalesManagement(self.mostrar_menu)
-        self.ventana.show()
-        self.hide()
-
-    def reporting(self):
-        self.ventana = Reporting(self.mostrar_menu)
+        self.ventana = SalesManagement(user_id=self.user_id, menu_anterior=self.mostrar_menu)
+        self.log_action(self.user_id, "sales_management_window", "enter", f"User with id {self.user_id} entered the sales management tab")
         self.ventana.show()
         self.hide()
 
     def logout(self):
+        self.log_action(self.user_id, "logout", "logout", f"User with id {self.user_id} logout the system")
         self.close()
 
     def mostrar_menu(self):
         self.show()
         self.ventana.close()
 
+    def log_action(self, user_id, action, entity, details):
+        try:
+            conn = sqlite3.connect('erp_sales.db')
+            cursor = conn.cursor()
+            
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            cursor.execute('''INSERT INTO Logs (timestamp, user_id, action, entity, details) VALUES (?, ?, ?, ?, ?)''', (timestamp, user_id, action, entity, details))
+            
+            conn.commit()
+            conn.close()
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
 
 if __name__ == '__main__':
 
-    #init_db()
+   # init_db()
     app = QApplication(sys.argv)
     login = LoginForm()
     sys.exit(app.exec())

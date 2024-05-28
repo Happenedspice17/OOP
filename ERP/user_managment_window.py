@@ -17,7 +17,7 @@ class UserManagement(QWidget):
         layout = QVBoxLayout()
 
         main_label = QLabel(self)
-        main_label.setText("User Managment Menu")
+        main_label.setText("User Management Menu")
         main_label.setFont(QFont("Arial", 16))
         layout.addWidget(main_label)
 
