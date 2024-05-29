@@ -10,9 +10,10 @@ from client_management_delete_client_window import DeleteClientWindow
 
 # Crear la segunda ventana de manejo de clientes
 class ClientManagement(QWidget):
-    def __init__(self, menu_anterior):
+    def __init__(self, user_id, menu_anterior):
         super().__init__()
         self.setFixedWidth(400)
+        self.user_id = user_id
         layout = QVBoxLayout()
 
         main_label = QLabel(self)
@@ -48,21 +49,21 @@ class ClientManagement(QWidget):
             self.ventana.close()
 
     def add_user_window(self):
-        self.ventana = AddClientWindow(self.mostrar_menu)
+        self.ventana = AddClientWindow(self.user_id, self.mostrar_menu)
         self.ventana.show()
         self.hide()
 
     def edit_user_window(self):
-        self.ventana = EditClientWindow(self.mostrar_menu)
+        self.ventana = EditClientWindow(self.user_id, self.mostrar_menu)
         self.ventana.show()
         self.hide()
 
     def view_user_window(self):
-        self.ventana = ViewClientWindow(self.mostrar_menu)
+        self.ventana = ViewClientWindow(self.user_id, self.mostrar_menu)
         self.ventana.show()
         self.hide()
 
     def delete_user_window(self):
-        self.ventana = DeleteClientWindow(self.mostrar_menu)
+        self.ventana = DeleteClientWindow(user_id, self.mostrar_menu)
         self.ventana.show()
         self.hide()

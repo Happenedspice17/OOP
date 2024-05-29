@@ -1,4 +1,0 @@
--- INSERT INTO Presentation (name)
--- VALUES 
--- ("Box"),
--- ("Bottle")

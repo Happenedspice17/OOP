@@ -5,12 +5,12 @@ from PyQt6.QtGui import QFont, QPixmap, QPalette, QColor
 from PyQt6.QtCore import Qt
 
 class AddClientWindow(QWidget):
-    def __init__(self, menu_anterior):
+    def __init__(self, user_id, menu_anterior):
         super().__init__()
-        self.menu_anterior = menu_anterior
-        self.add_client_widget()
+        self.user_id = user_id
+        self.add_client_widget(menu_anterior)
 
-    def add_client_widget(self):
+    def add_client_widget(self, menu_anterior):
         self.setFixedWidth(400)
         layout = QVBoxLayout()
 
@@ -63,8 +63,8 @@ class AddClientWindow(QWidget):
         self.add_client_button = QPushButton("Add Client", self)
         self.add_client_button.clicked.connect(self.add_client)
 
-        self.boton_regresar = QPushButton("Regresar al menú anterior")
-        self.boton_regresar.clicked.connect(self.menu_anterior)
+        self.boton_regresar = QPushButton("Return Prev Menu")
+        self.boton_regresar.clicked.connect(menu_anterior)
 
 
         layout.addWidget(main_label)
@@ -107,8 +107,22 @@ class AddClientWindow(QWidget):
         try:
             c.execute('''INSERT INTO Clients (name, RFC, fiscal_regimen_id, address, city, state, zip_code) VALUES (?, ?, ?, ?, ?, ?, ?)''', (client_name, rfc, fiscal_regimen, address, city, state, zip_code))
             conn.commit()
+            self.log_action(self.user_id, "user_added", "Users", f"User added by id {self.user_id}")
             QMessageBox.information(self, 'Success', 'Client added successfully.')
         except sqlite3.IntegrityError:
             QMessageBox.warning(self, 'Error', 'Client already exists.')
         finally:
             conn.close()
+
+    def log_action(self, user_id, action, entity, details):
+        try:
+            conn = sqlite3.connect('erp_sales.db')
+            cursor = conn.cursor()
+            
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            cursor.execute('''INSERT INTO Logs (timestamp, user_id, action, entity, details) VALUES (?, ?, ?, ?, ?)''', (timestamp, user_id, action, entity, details))
+            
+            conn.commit()
+            conn.close()
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")

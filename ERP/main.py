@@ -282,7 +282,7 @@ class LoginForm(QWidget):
 
 if __name__ == '__main__':
 
-   # init_db()
+    # init_db()
     app = QApplication(sys.argv)
     login = LoginForm()
     sys.exit(app.exec())

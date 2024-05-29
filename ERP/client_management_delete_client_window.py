@@ -5,8 +5,9 @@ from PyQt6.QtGui import QFont, QPixmap, QPalette, QColor
 from PyQt6.QtCore import Qt
 
 class DeleteClientWindow(QWidget):
-    def __init__(self, menu_anterior):
+    def __init__(self, user_id, menu_anterior):
         super().__init__()
+        self.user_id = user_id
         self.delete_client_widget(menu_anterior)
 
 
@@ -56,6 +57,20 @@ class DeleteClientWindow(QWidget):
         try:
             self.c.execute('DELETE FROM Clients WHERE name = ?', (selected_user_input,))
             self.conn.commit()
+            self.log_action(self.user_id, "user_deleted", "Users", f"User deleted by id {self.user_id}")
             QMessageBox.information(self, 'Éxito', 'User deleted succesfully')
         except sqlite3.IntegrityError:
             QMessageBox.warning(self, 'Error', 'User does not exist.')
+
+    def log_action(self, user_id, action, entity, details):
+        try:
+            conn = sqlite3.connect('erp_sales.db')
+            cursor = conn.cursor()
+            
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            cursor.execute('''INSERT INTO Logs (timestamp, user_id, action, entity, details) VALUES (?, ?, ?, ?, ?)''', (timestamp, user_id, action, entity, details))
+            
+            conn.commit()
+            conn.close()
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")

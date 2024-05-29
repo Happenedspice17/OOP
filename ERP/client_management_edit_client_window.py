@@ -5,9 +5,10 @@ from PyQt6.QtGui import QFont, QPixmap, QPalette, QColor
 from PyQt6.QtCore import Qt
 
 class EditClientWindow(QWidget):
-    def __init__(self, menu_anterior):
+    def __init__(self, user_id, menu_anterior):
         super().__init__()
         self.menu_anterior = menu_anterior
+        self.user_id = user_id
         self.edit_client_widget()
 
     def edit_client_widget(self):
@@ -121,8 +122,22 @@ class EditClientWindow(QWidget):
             if self.c.rowcount == 0:
                 QMessageBox.warning(self, 'Error', 'Client does not exist.')
             else:
+                self.log_action(self.user_id, "user_edited", "Users", f"User edited by id {self.user_id}")
                 QMessageBox.information(self, 'Success', 'Client updated successfully.')
         except sqlite3.Error as e:
             QMessageBox.warning(self, 'Error', f'Database error: {e}')
         finally:
             self.conn.close()
+
+    def log_action(self, user_id, action, entity, details):
+        try:
+            conn = sqlite3.connect('erp_sales.db')
+            cursor = conn.cursor()
+            
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            cursor.execute('''INSERT INTO Logs (timestamp, user_id, action, entity, details) VALUES (?, ?, ?, ?, ?)''', (timestamp, user_id, action, entity, details))
+            
+            conn.commit()
+            conn.close()
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")

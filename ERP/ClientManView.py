@@ -38,7 +38,7 @@ class MainWindowClientManagement(QWidget):
 
 
     def client_managment(self):
-        self.ventana = ClientManagement(self.mostrar_menu)
+        self.ventana = ClientManagement(self.user_id, self.mostrar_menu)
         self.log_action(self.user_id, "client_management_window", "enter", f"Admin with id {self.user_id} entered the client management tab")
         self.ventana.show()
         self.hide()
